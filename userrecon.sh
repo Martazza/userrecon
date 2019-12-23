@@ -1036,6 +1036,21 @@ printf "\e[1;92m Found!\e[0m https://%s.basecamphq.com/login\n" $username
 printf "https://%s.basecamphq.com/login\n" $username >> $username.txt
 
 fi
+
+## LoL
+for server in JP EUW EUNE NA BR OCE LAN TR LAS RU SG TW PH VN TH ID
+do
+	printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] Lol %s Server: \e[0m" $server 
+	check_lol=$(curl -s -i "https://$server.op.gg/summoner/ajax/checkSummoner.jsonp/name=$username" -H "Accept-Language: en" -L | grep -o '\(\["none"\]\)' ; echo $?)
+
+	if [[ $check_lol == *'0'* ]] ; then 
+	printf "\e[1;93mNot Found!\e[0m\n"
+	elif [[ $check_lol == *'1'* ]]; then 
+
+	printf "\e[1;92m Found!\e[0m https://%s.op.gg/summoner/userName=%s\n" $server $username
+	printf "https://%s.op.gg/summoner/userName=%s\n" $server $username >> $username.txt
+	fi
+done
 partial
 }
 banner
