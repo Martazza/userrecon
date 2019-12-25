@@ -1,4 +1,4 @@
-#!/bin/bash
+w#!/bin/bash
 # UserRecon v1.0
 # Author: @linux_choice
 # https://github.com/thelinuxchoice/userrecon
@@ -1051,6 +1051,21 @@ do
 	printf "https://%s.op.gg/summoner/userName=%s\n" $server $username >> $username.txt
 	fi
 done
+
+
+## AskFm
+
+printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] AsfFM: \e[0m"
+check1=$(curl -s -i "https://ask.fm/$username/" -H "Accept-Language: en" -L | grep -o 'Well, apparently not anymore\.' ; echo $?)
+
+if [[ $check1 == *'0'* ]] ; then 
+printf "\e[1;93mNot Found!\e[0m\n"
+elif [[ $check1 == *'1'* ]]; then 
+
+printf "\e[1;92m Found!\e[0m https://ask.fm/%s" $username
+printf "https://ask.fm/%s\n" $username >> $username.txt
+
+fi
 partial
 }
 banner
