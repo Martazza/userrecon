@@ -44,6 +44,20 @@ fi
 printf "\n"
 printf "\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Checking username\e[0m\e[1;77m %s\e[0m\e[1;92m on: \e[0m\n" $username
 
+
+## OnlyFans
+printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] OnlyFans: \e[0m"
+check1=$(curl -s -i "https://modelhub.com/$username/" -H "Accept-Language: en" -L | grep -o '404: page not found' ; echo $?)
+
+if [[ $check1 == *'0'* ]] ; then 
+printf "\e[1;93mNot Found!\e[0m\n"
+elif [[ $check1 == *'1'* ]]; then 
+
+printf "\e[1;92m Found!\e[0m https://onlyfans.com/%s" $username
+printf "https://onlyfans.com/%s\n" $username >> $username.txt
+
+fi
+
 ## INSTAGRAM
 
 check_insta=$(curl -s -H "Accept-Language: en" "https://www.instagram.com/$username" -L | grep -o 'The link you followed may be broken'; echo $?)
@@ -1054,7 +1068,6 @@ done
 
 
 ## AskFm
-
 printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] AsfFM: \e[0m"
 check1=$(curl -s -i "https://ask.fm/$username/" -H "Accept-Language: en" -L | grep -o 'Well, apparently not anymore\.' ; echo $?)
 
@@ -1066,6 +1079,8 @@ printf "\e[1;92m Found!\e[0m https://ask.fm/%s" $username
 printf "https://ask.fm/%s\n" $username >> $username.txt
 
 fi
+
+
 partial
 }
 banner
