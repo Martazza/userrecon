@@ -44,20 +44,6 @@ fi
 printf "\n"
 printf "\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Checking username\e[0m\e[1;77m %s\e[0m\e[1;92m on: \e[0m\n" $username
 
-
-## OnlyFans
-printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] OnlyFans: \e[0m"
-check1=$(curl -s -i "https://modelhub.com/$username/" -H "Accept-Language: en" -L | grep -o '404: page not found' ; echo $?)
-
-if [[ $check1 == *'0'* ]] ; then 
-printf "\e[1;93mNot Found!\e[0m\n"
-elif [[ $check1 == *'1'* ]]; then 
-
-printf "\e[1;92m Found!\e[0m https://onlyfans.com/%s" $username
-printf "https://onlyfans.com/%s\n" $username >> $username.txt
-
-fi
-
 ## INSTAGRAM
 
 check_insta=$(curl -s -H "Accept-Language: en" "https://www.instagram.com/$username" -L | grep -o 'The link you followed may be broken'; echo $?)
@@ -479,7 +465,7 @@ fi
 ## CashMe
 
 printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] CashMe: \e[0m"
-check1=$(curl -s -i "https://cash.me/$username" -H "Accept-Language: en" -L | grep -o '404 Not Found'; echo $?)
+check1=$(curl -s -i "https://cash.me/$username" -H "Accept-Language: en" -L -I | grep -o 'HTTP/2 404'; echo $?)
 
 if [[ $check1 == *'0'* ]] ; then 
 printf "\e[1;93mNot Found!\e[0m\n"
@@ -518,7 +504,7 @@ fi
 ## Instructables
 
 printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] Instructables: \e[0m"
-check1=$(curl -s -i "https://www.instructables.com/member/$username" -H "Accept-Language: en" -L | grep -o '404 NOT FOUND' ; echo $?)
+check1=$(curl -s -i "https://www.instructables.com/member/$username" -H "Accept-Language: en" -L -I | grep -o 'HTTP/2 404' ; echo $?)
 
 if [[ $check1 == *'0'* ]] ; then 
 printf "\e[1;93mNot Found!\e[0m\n"
@@ -531,7 +517,7 @@ fi
 ## KeyBase
 
 printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] Keybase: \e[0m"
-check1=$(curl -s -i "https://keybase.io/$username" -H "Accept-Language: en" -L | grep -o '404 Not Found' ; echo $?)
+check1=$(curl -s -i "https://keybase.io/$username" -H "Accept-Language: en" -L -I | grep -o 'HTTP/2 404' ; echo $?)
 
 if [[ $check1 == *'0'* ]] ; then 
 printf "\e[1;93mNot Found!\e[0m\n"
@@ -648,7 +634,7 @@ fi
 ## Foursquare
 
 printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] Foursquare: \e[0m"
-check1=$(curl -s -i "https://foursquare.com/$username" -H "Accept-Language: en" -L | grep -o '404 Not Found' ; echo $?)
+check1=$(curl -s -i "https://foursquare.com/$username" -H "Accept-Language: en" -L -I | grep -o 'HTTP/2 404' ; echo $?)
 
 if [[ $check1 == *'0'* ]] ; then 
 printf "\e[1;93mNot Found!\e[0m\n"
@@ -1055,7 +1041,7 @@ fi
 for server in JP EUW EUNE NA BR OCE LAN TR LAS RU SG TW PH VN TH ID
 do
 	printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] Lol %s Server: \e[0m" $server 
-	check_lol=$(curl -s -i "https://$server.op.gg/summoner/ajax/checkSummoner.jsonp/name=$username" -H "Accept-Language: en" -L | grep -o '\(\["none"\]\)' ; echo $?)
+	check_lol=$(curl -s -i "https://$server.op.gg/summoner/ajax/checkSummoner.jsonp/name=$username" -H "Accept-Language: en" -L | grep -o '\(\["none"\]\)|DB Server Maintenance In Progress' ; echo $?)
 
 	if [[ $check_lol == *'0'* ]] ; then 
 	printf "\e[1;93mNot Found!\e[0m\n"
@@ -1077,6 +1063,19 @@ elif [[ $check1 == *'1'* ]]; then
 
 printf "\e[1;92m Found!\e[0m https://ask.fm/%s" $username
 printf "https://ask.fm/%s\n" $username >> $username.txt
+
+fi
+
+## ModelHub
+printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] ModelHub: \e[0m"
+check1=$(curl -s -i "https://modelhub.com/$username/" -H "Accept-Language: en" -L | grep -o '404: page not found' ; echo $?)
+
+if [[ $check1 == *'0'* ]] ; then 
+printf "\e[1;93mNot Found!\e[0m\n"
+elif [[ $check1 == *'1'* ]]; then 
+
+printf "\e[1;92m Found!\e[0m https://modelhub.com/%s" $username
+printf "https://modelhub.com/%s\n" $username >> $username.txt
 
 fi
 
