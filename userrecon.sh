@@ -1041,7 +1041,7 @@ fi
 for server in JP EUW EUNE NA BR OCE LAN TR LAS RU SG TW PH VN TH ID
 do
 	printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] Lol %s Server: \e[0m" $server 
-	check_lol=$(curl -s -i "https://$server.op.gg/summoner/ajax/checkSummoner.jsonp/name=$username" -H "Accept-Language: en" -L | grep -o '\(\["none"\]\)|DB Server Maintenance In Progress' ; echo $?)
+	check_lol=$(curl -s "https://$server.op.gg/summoner/ajax/checkSummoner.jsonp/name=$username" -H "Accept-Language: en" -L | grep -e "\(\[\"none\"\]\)" -e "DB Server Maintenance In Progress" ; echo $?)
 
 	if [[ $check_lol == *'0'* ]] ; then 
 	printf "\e[1;93mNot Found!\e[0m\n"
@@ -1078,6 +1078,7 @@ printf "\e[1;92m Found!\e[0m https://modelhub.com/%s" $username
 printf "https://modelhub.com/%s\n" $username >> $username.txt
 
 fi
+
 
 
 partial
