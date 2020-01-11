@@ -1092,6 +1092,19 @@ printf "https://www.fatsecret.com/member/%s\n" $username >> $username.txt
 
 fi
 
+## MyFitnessPal
+printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] ModelHub: \e[0m"
+check1=$(curl -s -i "https://www.myfitnesspal.com/user/$username/status" -H "Accept-Language: en" -I | grep -o 'HTTP/2 404' ; echo $?)
+
+if [[ $check1 == *'0'* ]] ; then 
+printf "\e[1;93mNot Found!\e[0m\n"
+elif [[ $check1 == *'1'* ]]; then 
+
+printf "\e[1;92m Found!\e[0m https://www.myfitnesspal.com/user/%s/status" $username
+printf "https://www.myfitnesspal.com/user/%s/status\n" $username >> $username.txt
+
+fi
+
 partial
 }
 banner
