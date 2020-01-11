@@ -1079,7 +1079,18 @@ printf "https://modelhub.com/%s\n" $username >> $username.txt
 
 fi
 
+## FatSecret
+printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] ModelHub: \e[0m"
+check1=$(curl -s -i "https://www.fatsecret.com/member/$username" -H "Accept-Language: en" -L -I | grep -o 'HTTP/2 302' ; echo $?)
 
+if [[ $check1 == *'0'* ]] ; then 
+printf "\e[1;93mNot Found!\e[0m\n"
+elif [[ $check1 == *'1'* ]]; then 
+
+printf "\e[1;92m Found!\e[0m https://www.fatsecret.com/member/%s" $username
+printf "https://www.fatsecret.com/member/%s\n" $username >> $username.txt
+
+fi
 
 partial
 }
