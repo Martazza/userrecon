@@ -1080,7 +1080,7 @@ printf "https://modelhub.com/%s\n" $username >> $username.txt
 fi
 
 ## FatSecret
-printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] ModelHub: \e[0m"
+printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] FatSecret: \e[0m"
 check1=$(curl -s -i "https://www.fatsecret.com/member/$username" -H "Accept-Language: en" -L -I | grep -o 'HTTP.* 302' ; echo $?)
 
 if [[ $check1 == *'0'* ]] ; then 
@@ -1093,7 +1093,7 @@ printf "https://www.fatsecret.com/member/%s\n" $username >> $username.txt
 fi
 
 ## MyFitnessPal
-printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] ModelHub: \e[0m"
+printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] MyFitnessPal: \e[0m"
 check1=$(curl -s -i "https://www.myfitnesspal.com/user/$username/status" -H "Accept-Language: en" -I | grep -o 'HTTP.* 404' ; echo $?)
 
 if [[ $check1 == *'0'* ]] ; then 
@@ -1106,7 +1106,7 @@ printf "https://www.myfitnesspal.com/user/%s/status\n" $username >> $username.tx
 fi
 
 ## PhotoBucket
-printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] ModelHub: \e[0m"
+printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] PhotoBucket: \e[0m"
 check1=$(curl -s -i "https://smg.photobucket.com/user/$username/library/" -H "Accept-Language: en" -I | grep -o 'HTTP.* 404' ; echo $?)
 
 if [[ $check1 == *'0'* ]] ; then 
@@ -1118,6 +1118,31 @@ printf "https://smg.photobucket.com/user/%s/library\n" $username >> $username.tx
 
 fi
 
+## N4G
+printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] N4G: \e[0m"
+check1=$(curl -s -i "https://n4g.com/user/home/$username/" -H "Accept-Language: en" -I | grep -o 'HTTP.* 404' ; echo $?)
+
+if [[ $check1 == *'0'* ]] ; then 
+printf "\e[1;93mNot Found!\e[0m\n"
+elif [[ $check1 == *'1'* ]]; then 
+
+printf "\e[1;92m Found!\e[0m https://n4g.com/user/home/%s" $username
+printf "https://n4g.com/user/home/%s\n" $username >> $username.txt
+
+fi
+
+## EbaumsWorld
+printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] EbaumsWorld: \e[0m"
+check1=$(curl -s -i "https://www.ebaumsworld.com/user/profile/$username" -H "Accept-Language: en" -I -L | grep -o 'HTTP.* 404' ; echo $?)
+
+if [[ $check1 == *'0'* ]] ; then 
+printf "\e[1;93mNot Found!\e[0m\n"
+elif [[ $check1 == *'1'* ]]; then 
+
+printf "\e[1;92m Found!\e[0m https://www.ebaumsworld.com/user/profile/%s" $username
+printf "https://www.ebaumsworld.com/user/profile/%s\n" $username >> $username.txt
+
+fi
 partial
 }
 banner
