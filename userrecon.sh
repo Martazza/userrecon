@@ -1144,6 +1144,19 @@ printf "https://www.ebaumsworld.com/user/profile/%s\n" $username >> $username.tx
 
 fi
 
+## Cnet
+printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] Cnet: \e[0m"
+check1=$(curl -s -i "https://www.cnet.com/profile/$username" -H "Accept-Language: en" -I -L | grep -o 'HTTP.* 404' ; echo $?)
+
+if [[ $check1 == *'0'* ]] ; then 
+printf "\e[1;93mNot Found!\e[0m\n"
+elif [[ $check1 == *'1'* ]]; then 
+
+printf "\e[1;92m Found!\e[0m https://www.cnet.com/profile/%s" $username
+printf "https://www.cnet.com/profile/%s\n" $username >> $username.txt
+
+fi
+
 partial
 }
 banner
