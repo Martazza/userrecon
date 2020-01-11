@@ -1143,6 +1143,7 @@ printf "\e[1;92m Found!\e[0m https://www.ebaumsworld.com/user/profile/%s" $usern
 printf "https://www.ebaumsworld.com/user/profile/%s\n" $username >> $username.txt
 
 fi
+
 partial
 }
 banner
