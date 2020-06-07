@@ -1157,6 +1157,18 @@ printf "https://www.cnet.com/profile/%s\n" $username >> $username.txt
 
 fi
 
+## Tinder
+#Thanks to R3M4G
+printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] Tinder: \e[0m"
+check_tinder=$(curl -s -H "Accept-Language: en" "https://www.gotinder.com/@$username" -L | grep -o 'Looking for Someone?' ; echo $?)
+
+if [[ $check_tinder == *'1'* ]]; then
+printf "\e[1;92m Found!\e[0m www.gotinder.com/@%s\n" $username
+printf "www.gotinder.com/@%s\n" $username > $username.txt
+elif [[ $check_tinder == *'0'* ]]; then
+printf "\e[1;93mNot Found!\e[0m\n"
+fi
+
 partial
 }
 banner
